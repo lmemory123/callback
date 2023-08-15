@@ -46,13 +46,15 @@ public class BasicController {
     }
     @RequestMapping(value = "callback",method = RequestMethod.POST)
     @ResponseBody
-    public Map callbakc(@RequestBody JSONArray jsonArray){
+    public Object callbakc(@RequestBody JSONArray jsonArray){
 //        System.out.println(JSON.toJSONString(map));
         System.out.println(jsonArray.toJSONString());
         Map<String, Object> map = new HashMap<String, Object>() ;
-        map.put("code", 200) ;
+        map.put("result", 200) ;
         map.put("msg", "success") ;
-        return map ;
+        Object[] objects=new Object[1];
+        objects[0]=map;
+        return objects ;
 
     }
 //    @RequestMapping(value = "/encrypt",method = RequestMethod.POST)

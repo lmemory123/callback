@@ -2,6 +2,7 @@ package com.example.callback;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.example.callback.demos.web.AESU.AesUtils;
 import jakarta.annotation.Resource;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
@@ -150,7 +151,6 @@ class CallbackApplicationTests {
         Key key = new SecretKeySpec(keyBytes, "AES");
         Map<String, Object> map = new HashMap<>();
         map.put("phone", "18977665544");
-//        获取本机ip
         String hostAddress = null;
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
@@ -161,6 +161,8 @@ class CallbackApplicationTests {
         map.put("createTime", System.currentTimeMillis());
         System.out.println(JSON.toJSONString(map));
         byte[] encryData = encrypt(JSON.toJSONString(map), key);
+
+
 
         System.out.println(Base64.encodeBase64String(encryData));
         JSONObject jsonObject = restTemplate.postForObject("Http://localhost:8660/sys/user/system/examine", Base64.encodeBase64String(encryData), JSONObject.class);
@@ -177,6 +179,12 @@ class CallbackApplicationTests {
         }
 
 
+    }
+
+    @Test
+    public void test65(){
+        String wmsHostAddress = AesUtils.getWmsHostAddress("13083015567");
+        System.out.println(wmsHostAddress);
     }
 
 
