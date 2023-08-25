@@ -59,7 +59,7 @@ public  class AesUtils {
 
     }
 
-    public static String getWmsHostAddress(String phone ){
+    public static String GET_WMS_HOST_ADDRESS(String phone ){
         byte[] keyBytes = Base64.decodeBase64(key);
         Key key = new SecretKeySpec(keyBytes, "AES");
         Map<String, Object> map = new HashMap<>();

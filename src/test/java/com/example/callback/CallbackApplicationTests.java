@@ -183,7 +183,7 @@ class CallbackApplicationTests {
 
     @Test
     public void test65(){
-        String wmsHostAddress = AesUtils.getWmsHostAddress("13083015567");
+        String wmsHostAddress = AesUtils.GET_WMS_HOST_ADDRESS("13083015567");
         System.out.println(wmsHostAddress);
     }
 

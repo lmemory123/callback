@@ -16,9 +16,16 @@
 
 package com.example.callback.demos.web;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     private String name;
