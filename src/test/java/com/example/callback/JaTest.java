@@ -28,6 +28,18 @@ import java.util.stream.Collectors;
 public class JaTest {
 
 
+
+    @Test
+    public void test3() {
+        String s = "123456789";
+        String substring = s.substring(0, 3);
+        System.out.println(substring);
+    }
+
+
+
+
+
     @Test
     public void test1(){
         List<User> users = List.of(new User("TokyoMomao", 18), new User("TokyoMomao", 18),new User("TokyoXiaomao", 18));
