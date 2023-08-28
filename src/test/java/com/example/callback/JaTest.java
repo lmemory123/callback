@@ -1,13 +1,20 @@
 package com.example.callback;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.example.callback.demos.web.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Time;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +38,34 @@ public class JaTest {
 
     @Test
     public void test3() {
-        String s = "123456789";
-        String substring = s.substring(0, 3);
-        System.out.println(substring);
-        //  TODO 一脸懵逼
+        String warrantyUnit = "2";
+        String warranty = "100";
+        String dproducedate = "2021-08-23";
+        DateTime date = new DateTime(dproducedate);
+        LocalDate localDate = LocalDate.now().minusDays(1);
+
+
+
+
+        String dvalidate ;
+        switch (warrantyUnit) {
+            case "0":
+                dvalidate = localDate.plusYears(Long.parseLong(warranty)).toString();
+                break;
+            case "1":
+                dvalidate = localDate.plusMonths(Long.parseLong(warranty)).toString();
+                break;
+            case "2":
+                dvalidate = localDate.plusDays(Long.parseLong(warranty)).toString();
+                break;
+            default:
+                dvalidate = localDate.plusDays(Long.parseLong(warranty)).toString();
+                break;
+
+        }
+        System.out.println(dvalidate);
+        String backCode = "clck" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + String.format("%04d", 1);
+        System.out.println(backCode);
     }
 
 
