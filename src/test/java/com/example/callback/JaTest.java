@@ -40,7 +40,9 @@ public class JaTest {
     public void test3() {
         String warrantyUnit = "2";
         String warranty = "100";
-        String dproducedate = "2021-08-23";
+        String dproducedate = "2023-07-04 22:13:58";
+        LocalDateTime localDateTime = LocalDateTimeUtil.parse(dproducedate, "yyyy-MM-dd HH:mm:ss");
+        System.out.println(localDateTime.toLocalDate());
         DateTime date = new DateTime(dproducedate);
         LocalDate localDate = LocalDate.now().minusDays(1);
 
