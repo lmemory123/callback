@@ -3,6 +3,7 @@ package com.example.callback;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.callback.demos.web.AESU.AesUtils;
+import com.example.callback.demos.web.Type;
 import jakarta.annotation.Resource;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
@@ -185,6 +186,12 @@ class CallbackApplicationTests {
     public void test65(){
         String wmsHostAddress = AesUtils.GET_WMS_HOST_ADDRESS("13083015567");
         System.out.println(wmsHostAddress);
+    }
+    @Test
+    public void test34(){
+        if (Type.LCCK.contains("4D-Cxx-08")) {
+            System.out.println("true");
+        }
     }
 
 
