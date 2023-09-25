@@ -16,6 +16,8 @@
 
 package com.example.callback.demos.web;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.example.callback.demos.web.util.SexConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -30,9 +32,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-    private String name;
 
+    @ExcelProperty("姓名")
+    private String name;
+    @ExcelProperty("年龄")
     private Integer age;
+    @ExcelProperty(value = "性别",converter = SexConverter.class)
+    private Integer sex;
 
     public void setName(String name) {
         this.name = name;

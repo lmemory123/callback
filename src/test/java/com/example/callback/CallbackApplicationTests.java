@@ -1,9 +1,12 @@
 package com.example.callback;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.callback.demos.web.AESU.AesUtils;
 import com.example.callback.demos.web.Type;
+import com.example.callback.demos.web.User;
 import jakarta.annotation.Resource;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
@@ -12,15 +15,36 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.*;
 import java.security.spec.InvalidParameterSpecException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
 class CallbackApplicationTests {
+
+
+    @Test
+    public  void printUser(){
+        User user = new User();
+        user.setAge(12);
+        user.setName("张三");
+        user.setSex(1);
+        List<User> users = List.of(user);
+        String realPath = "D://wsfile/";
+        File folder = new File(realPath);
+        if (!folder.isDirectory()){
+            folder.mkdirs();
+        }
+        ExcelWriterBuilder workBook = EasyExcel.write("d:\\lds学员表.xlsx", User.class);
+        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为用户表 然后文件流会自动关闭
+        workBook.sheet("用户表").doWrite(users);
+
+    }
 
     @Test
     void contextLoads() throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
