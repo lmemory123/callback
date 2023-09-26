@@ -17,6 +17,7 @@
 package com.example.callback.demos.web;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.example.callback.demos.web.util.MyExcelProperty;
 import com.example.callback.demos.web.util.SexConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +39,7 @@ public class User {
     @ExcelProperty("年龄")
     private Integer age;
     @ExcelProperty(value = "性别",converter = SexConverter.class)
+    @MyExcelProperty(value = "性别", converter = SexConverter.class, converterMap = "sexMap")
     private Integer sex;
 
     public void setName(String name) {

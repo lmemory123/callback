@@ -1,5 +1,8 @@
 package com.example.callback.demos.web.util;
 
+import com.alibaba.excel.converters.AutoConverter;
+import com.alibaba.excel.converters.Converter;
+
 import java.lang.annotation.*;
 
 /**
@@ -20,7 +23,8 @@ public @interface MyExcelProperty {
 
     int order() default Integer.MAX_VALUE;
 
-    String converter();
+    Class<? extends Converter<?>> converter() default AutoConverter.class;
+    String converterMap() default "";
 
     /** @deprecated */
     @Deprecated

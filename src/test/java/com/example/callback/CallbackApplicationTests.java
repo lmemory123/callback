@@ -1,12 +1,12 @@
 package com.example.callback;
 
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.write.builder.ExcelWriterBuilder;
+import com.alibaba.excel.converters.Converter;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.callback.demos.web.AESU.AesUtils;
 import com.example.callback.demos.web.Type;
 import com.example.callback.demos.web.User;
+import com.example.callback.demos.web.util.ExcelUtil;
 import jakarta.annotation.Resource;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.*;
@@ -27,6 +28,18 @@ import java.util.Map;
 @SpringBootTest
 class CallbackApplicationTests {
 
+
+
+    @Test
+    public  void printUser1() {
+        User user = new User();
+        user.setAge(12);
+        user.setName("张三");
+        user.setSex(1);
+        List<User> users = List.of(user);
+
+        ExcelUtil.writeExcel(users, "D://wsfile/", User.class);
+    }
 
     @Test
     public  void printUser(){
@@ -40,9 +53,31 @@ class CallbackApplicationTests {
         if (!folder.isDirectory()){
             folder.mkdirs();
         }
-        ExcelWriterBuilder workBook = EasyExcel.write("d:\\lds学员表.xlsx", User.class);
-        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为用户表 然后文件流会自动关闭
-        workBook.sheet("用户表").doWrite(users);
+        // 判断字段是否有ExcelProperty注解 并且获取到注解的值
+        Class<? extends User> aClass = user.getClass();
+        // 获取到所有的字段
+        Field[] declaredFields = aClass.getDeclaredFields();
+        for (Field field : declaredFields) {
+            // 判断字段是否有ExcelProperty注解
+            if (field.isAnnotationPresent(com.alibaba.excel.annotation.ExcelProperty.class)) {
+                // 获取到注解的值
+                com.alibaba.excel.annotation.ExcelProperty annotation = field.getAnnotation(com.alibaba.excel.annotation.ExcelProperty.class);
+                Class<? extends Converter<?>> converter = annotation.converter();
+                String value = annotation.value()[0];
+                System.out.println(annotation);
+                System.out.println(annotation.converter());
+//              如果是 SexConverter.class 就将sex值转化为男女
+                if (converter.equals(com.example.callback.demos.web.util.SexConverter.class)) {
+
+                }
+                System.out.println(value);
+
+
+            }
+        }
+
+
+
 
     }
 
