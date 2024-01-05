@@ -24,9 +24,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
- */
+import static com.example.callback.demos.web.util.ExcelUtil.SEX_CONVERTER;
+
 @Getter
 @Data
 @AllArgsConstructor
@@ -35,11 +34,13 @@ public class User {
 
 
     @ExcelProperty("姓名")
+    @MyExcelProperty("姓名")
     private String name;
     @ExcelProperty("年龄")
+    @MyExcelProperty("年龄")
     private Integer age;
     @ExcelProperty(value = "性别",converter = SexConverter.class)
-    @MyExcelProperty(value = "性别", converter = SexConverter.class, converterMap = "sexMap")
+    @MyExcelProperty(value = "性别", converter = SexConverter.class, converterMap = SEX_CONVERTER)
     private Integer sex;
 
     public void setName(String name) {

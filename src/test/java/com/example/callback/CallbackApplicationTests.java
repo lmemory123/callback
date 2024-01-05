@@ -21,6 +21,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.*;
 import java.security.spec.InvalidParameterSpecException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +36,51 @@ class CallbackApplicationTests {
 
 
     @Test
+    public void testSort() {
+        List<Long> list = List.of(2L, 9L, 3L, 7L, 5L, 1L, 6L, 4L, 8L);
+        list.stream().sorted(Comparator.comparingLong(Long::longValue)).forEach(System.out::println);
+
+    }
+    @Test
+    public void testMd5(){
+        String md5 = cn.hutool.crypto.digest.MD5.create().digestHex("123456");
+        System.out.println(md5);
+
+    }
+
+    @Test
+    public  void tesTime(){
+        // 2023-11-01 00:00:00  获取这个时间 类型为LocalDateTiem
+        LocalDateTime parse = LocalDateTime.parse("2024-07-24 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+
+        long until = LocalDate.now().until(parse, ChronoUnit.DAYS);
+        long until2=parse.toLocalDate().until(LocalDate.now(), ChronoUnit.DAYS);
+        // pares 是失效日期
+        if(until>3){
+            System.out.println("未过期");
+        }else {
+            System.out.println("已过期");
+        }
+        System.out.println(until);
+        System.out.println(until2);
+    }
+
+    @Test
     public  void printUser1() {
         User user = new User();
         user.setAge(12);
         user.setName("张三");
         user.setSex(1);
-        List<User> users = List.of(user);
+        User user1 = new User();
+        user1.setAge(13);
+        user1.setName("李四");
+        user1.setSex(0);
+        User user2 = new User();
+        user2.setAge(14);
+        user2.setName("王五");
+        user2.setSex(1);
+        List<User> users = List.of(user, user1, user2);
 
         ExcelUtil.writeExcel(users, "D://wsfile/", User.class);
     }
@@ -130,13 +174,14 @@ class CallbackApplicationTests {
     public static byte[] encrypt(String data, Key key) {
         try {
             Cipher cipher = Cipher.getInstance(ALGO);
-            cipher.init(cipher.ENCRYPT_MODE, key);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
             return cipher.doFinal(data.getBytes());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
         return null;
     }
+
 
     private static byte[] decrypt(byte[] result, Key key) {
         try {
@@ -253,6 +298,21 @@ class CallbackApplicationTests {
         }
     }
 
+    @Test
+    public void test821001(){
+        String s = formatterPatternSwitch(1);
+        System.out.println(s);
+
+    }
+    static String formatterPatternSwitch(Object o) {
+        return switch (o) {
+            case Integer i -> String.format("int %d", i);
+            case Long l    -> String.format("long %d", l);
+            case Double d  -> String.format("double %f", d);
+            case String s  -> String.format("String %s", s);
+            default        -> o.toString();
+        };
+    }
 
 
 

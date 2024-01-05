@@ -22,6 +22,7 @@ import java.util.Map;
 public class ExcelUtil {
 
     public static Map<String,Map<String,String>> map=new HashMap<>();
+    public static final String SEX_CONVERTER ="sexmap";
     public static Map<String,String> sexmap=Map.of("0","男","1","女");
     static {
         map.put("sexMap",sexmap);
